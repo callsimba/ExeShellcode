@@ -9,12 +9,10 @@
 #include <iomanip>
 #include <cstdint>
 
-// Constants
 const std::string MAGIC_HEADER = "EXE2SC";
-const std::string AES_KEY = "your_super_secret_key_1234567890123456"; // 32-byte key for AES-256
+const std::string AES_KEY = "super_secret_key_1234567890123456";
 const size_t IV_SIZE = 16;
 
-// Metadata Structure
 struct Metadata {
     char magicHeader[6];
     uint8_t encryptFlag;
@@ -24,7 +22,6 @@ struct Metadata {
     unsigned char iv[IV_SIZE];
 };
 
-// Helper Functions
 std::vector<unsigned char> ReadFile(const std::string &path);
 void WriteFile(const std::string &path, const std::vector<unsigned char> &data);
 void WriteMetadata(std::ofstream &outFile, const Metadata &meta);
@@ -37,13 +34,9 @@ void EncryptAES256(std::vector<unsigned char> &data, const std::string &key, std
 void DecryptAES256(std::vector<unsigned char> &data, const std::string &key, const unsigned char *iv);
 void GeneratePowerShellArray(const std::string &outputPath, const std::vector<unsigned char> &data);
 
-// Convert EXE to Shellcode
 void ConvertExeToShellcode(const std::string &exePath, const std::string &outputPath, bool encrypt, bool compress, bool obfuscate, bool outputAsPowerShell);
-
-// Convert Shellcode to EXE
 void ConvertShellcodeToExe(const std::string &shellcodePath, const std::string &outputExePath);
 
-// Main Function
 int main(int argc, char *argv[]) {
     if (argc < 4) {
         std::cerr << "Usage:\n";
